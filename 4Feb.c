@@ -4,14 +4,14 @@ struct Process {
     int pid, arrival_time, burst_time, priority, waiting_time, turnaround_time;
 };
 
-void findWaitingTime_FCFS(struct Process proc[], int n) {
+void FCFS(struct Process proc[], int n) {
     proc[0].waiting_time = 0;
     for (int i = 1; i < n; i++) {
         proc[i].waiting_time = proc[i - 1].waiting_time + proc[i - 1].burst_time;
     }
 }
 
-void findWaitingTime_SJF(struct Process proc[], int n) {
+void SJF(struct Process proc[], int n) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
             if (proc[j].burst_time > proc[j + 1].burst_time) {
@@ -21,10 +21,10 @@ void findWaitingTime_SJF(struct Process proc[], int n) {
             }
         }
     }
-    findWaitingTime_FCFS(proc, n);
+    FCFS(proc, n);
 }
 
-void findWaitingTime_RR(struct Process proc[], int n, int quantum) {
+void RR(struct Process proc[], int n, int quantum) {
     int remaining_bt[n];
     int t = 0, done;
     for (int i = 0; i < n; i++) remaining_bt[i] = proc[i].burst_time;
@@ -46,7 +46,7 @@ void findWaitingTime_RR(struct Process proc[], int n, int quantum) {
     } while (!done);
 }
 
-void findWaitingTime_Priority(struct Process proc[], int n) {
+void Priority(struct Process proc[], int n) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
             if (proc[j].priority > proc[j + 1].priority) {
@@ -56,10 +56,10 @@ void findWaitingTime_Priority(struct Process proc[], int n) {
             }
         }
     }
-    findWaitingTime_FCFS(proc, n);
+    FCFS(proc, n);
 }
 
-void findTurnaroundTime(struct Process proc[], int n) {
+void TT(struct Process proc[], int n) {
     for (int i = 0; i < n; i++) {
         proc[i].turnaround_time = proc[i].waiting_time + proc[i].burst_time;
     }
@@ -85,25 +85,25 @@ int main() {
     }
     
     printf("\nFCFS Scheduling:\n");
-    findWaitingTime_FCFS(proc, n);
-    findTurnaroundTime(proc, n);
+    FCFS(proc, n);
+    TT(proc, n);
     printProcesses(proc, n);
     
     printf("\nSJF Scheduling:\n");
-    findWaitingTime_SJF(proc, n);
-    findTurnaroundTime(proc, n);
+    SJF(proc, n);
+    TT(proc, n);
     printProcesses(proc, n);
     
     printf("\nEnter Time Quantum for RR: ");
     scanf("%d", &quantum);
     printf("\nRound Robin Scheduling:\n");
-    findWaitingTime_RR(proc, n, quantum);
-    findTurnaroundTime(proc, n);
+    RR(proc, n, quantum);
+    TT(proc, n);
     printProcesses(proc, n);
     
     printf("\nPriority Scheduling:\n");
-    findWaitingTime_Priority(proc, n);
-    findTurnaroundTime(proc, n);
+    Priority(proc, n);
+    TT(proc, n);
     printProcesses(proc, n);
     
     return 0;
