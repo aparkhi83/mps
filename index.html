@@ -3,15 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sky Sports PL</title>
+    <title>Sky Sports Channels</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .channel-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .channel-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
+        }
+        
+        .channel-card a {
+            display: block;
+            padding: 30px 20px;
+            text-decoration: none;
+            color: inherit;
+            height: 100%;
+        }
+        
+        .channel-name {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .channel-number {
+            font-size: 0.9em;
+            color: #999;
+            display: flex;
+            align-items: center;
+        }
+        
+        .channel-number::before {
+            content: "Channel ";
+        }
+        
+        .channel-number::after {
+            content: " →";
+            margin-left: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Sky Sports Premier League</h1>
+            <h1>Sky Sports Channels</h1>
+            <p>Select a channel to watch live</p>
         </div>
-        <div class="player-wrapper">
-            <iframe src="https://daddyhd.com/cast/stream-130.php" width="100%" height="100%" style="border:0;" allowfullscreen></iframe>
+        
+        <div class="channels-grid">
+            <div class="channel-card">
+                <a href="player.html?channel=130">
+                    <div class="channel-name">Sky Sports Premier League</div>
+                    <div class="channel-number">130</div>
+                </a>
+            </div>
+            
+            <div class="channel-card">
+                <a href="player.html?channel=37">
+                    <div class="channel-name">Sky Sports Action UK</div>
+                    <div class="channel-number">37</div>
+                </a>
+            </div>
+            
+            <div class="channel-card">
+                <a href="player.html?channel=60">
+                    <div class="channel-name">Sky Sports F1 UK</div>
+                    <div class="channel-number">60</div>
+                </a>
+            </div>
+            
+            <div class="channel-card">
+                <a href="player.html?channel=36">
+                    <div class="channel-name">Sky Sports+ UK</div>
+                    <div class="channel-number">36</div>
+                </a>
+            </div>
+            
+            <div class="channel-card">
+                <a href="player.html?channel=449">
+                    <div class="channel-name">Sky Sports Mix UK</div>
+                    <div class="channel-number">449</div>
+                </a>
+            </div>
+            
+            <div class="channel-card">
+                <a href="player.html?channel=65">
+                    <div class="channel-name">Sky Sports Cricket</div>
+                    <div class="channel-number">65</div>
+                </a>
+            </div>
+            
+            <div class="channel-card">
+                <a href="player.html?channel=70">
+                    <div class="channel-name">Sky Sports Golf UK</div>
+                    <div class="channel-number">70</div>
+                </a>
+            </div>
+            
+            <div class="channel-card">
+                <a href="player.html?channel=46">
+                    <div class="channel-name">Sky Sports Tennis UK</div>
+                    <div class="channel-number">46</div>
+                </a>
+            </div>
+            
+            <div class="channel-card">
+                <a href="player.html?channel=366">
+                    <div class="channel-name">Sky Sports News UK</div>
+                    <div class="channel-number">366</div>
+                </a>
+            </div>
+            
+            <div class="channel-card">
+                <a href="player.html?channel=35">
+                    <div class="channel-name">Sky Sports Football UK</div>
+                    <div class="channel-number">35</div>
+                </a>
+            </div>
+            
+            <div class="channel-card">
+                <a href="player.html?channel=38">
+                    <div class="channel-name">Sky Sports Main Event</div>
+                    <div class="channel-number">38</div>
+                </a>
+            </div>
+            
+            <div class="channel-card">
+                <a href="player.html?channel=554">
+                    <div class="channel-name">Sky Sports Racing UK</div>
+                    <div class="channel-number">554</div>
+                </a>
+            </div>
         </div>
     </div>
 </body>

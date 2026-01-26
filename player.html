@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Sports Player</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 1.8em;
+        }
+        
+        .header a {
+            background: white;
+            color: #667eea;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .header a:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: scale(1.05);
+        }
+        
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        
+        .player-wrapper {
+            flex: 1;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+        }
+        
+        .player-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        
+        .channel-info {
+            padding: 20px;
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+        
+        .channel-info p {
+            margin: 5px 0;
+        }
+        
+        .channel-name {
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .channel-number {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Sky Sports Player</h1>
+        <a href="index.html">← Back to Channels</a>
+    </div>
+    
+    <div class="container">
+        <div class="channel-info">
+            <div class="channel-name" id="channelName">Loading...</div>
+            <div class="channel-number" id="channelNumber"></div>
+        </div>
+        
+        <div class="player-wrapper" id="playerWrapper">
+            <div class="error-message">Loading channel...</div>
+        </div>
+    </div>
+    
+    <script>
+        // Channel data mapping
+        const channels = {
+            130: "Sky Sports Premier League",
+            37: "Sky Sports Action UK",
+            60: "Sky Sports F1 UK",
+            36: "Sky Sports+ UK",
+            449: "Sky Sports Mix UK",
+            65: "Sky Sports Cricket",
+            70: "Sky Sports Golf UK",
+            46: "Sky Sports Tennis UK",
+            366: "Sky Sports News UK",
+            35: "Sky Sports Football UK",
+            38: "Sky Sports Main Event",
+            554: "Sky Sports Racing UK"
+        };
+        
+        // Get channel number from URL parameter
+        function getChannelFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('channel');
+        }
+        
+        // Initialize player
+        function initializePlayer() {
+            const channelNumber = getChannelFromUrl();
+            const playerWrapper = document.getElementById('playerWrapper');
+            const channelNameEl = document.getElementById('channelName');
+            const channelNumberEl = document.getElementById('channelNumber');
+            
+            if (!channelNumber || !channels[channelNumber]) {
+                playerWrapper.innerHTML = '<div class="error-message">Invalid channel selected. <a href="channels.html" style="color: #667eea;">Go back to channels</a></div>';
+                channelNameEl.textContent = 'Invalid Channel';
+                return;
+            }
+            
+            const channelName = channels[channelNumber];
+            const streamUrl = `https://daddyhd.com/cast/stream-${channelNumber}.php`;
+            
+            // Update channel info
+            channelNameEl.textContent = channelName;
+            channelNumberEl.textContent = `Channel ${channelNumber}`;
+            
+            // Create and insert iframe
+            const iframe = document.createElement('iframe');
+            iframe.src = streamUrl;
+            iframe.allowFullscreen = true;
+            
+            playerWrapper.innerHTML = '';
+            playerWrapper.appendChild(iframe);
+        }
+        
+        // Initialize when page loads
+        window.addEventListener('load', initializePlayer);
+        
+        // Also handle URL changes (if using back/forward)
+        window.addEventListener('popstate', initializePlayer);
+    </script>
+</body>
+</html>
